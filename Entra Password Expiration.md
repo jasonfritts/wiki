@@ -6,12 +6,13 @@ There is often some confusion about how password expiration works in Entra for u
 
    Ref: https://learn.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0&tabs=http#example-3-update-the-passwordprofile-of-a-user-and-reset-their-password:~:text=sensitive%20actions.-,passwordPolicies,-String
 
-Possible values include: **DisablePasswordExpiration** 
+   Possible values include: **DisablePasswordExpiration** 
 
 2. If no per-user passwordPolicies is found on user, they default to their domain suffix's passwordValidityPeriodInDays
 
    Ref: https://learn.microsoft.com/en-us/graph/api/resources/domain?view=graph-rest-1.0#:~:text=days%20is%20used.-,passwordValidityPeriodInDays,-Int32
 
+   'passwordValidityPeriodInDays' can be an integer value representing the number of days a user's password is good for if there is no per-user passwordPolicies applied to that user.
 
 ## Simple example 1 (Cloud Only Users)
 
@@ -32,7 +33,7 @@ Perform this query in Graph Explorer (https://aka.ms/ge)
    }
    ```
 
-So it defaults to it's domain "contoso.com"'s' passwordValidityPeriodInDays which you can obtain in Graph Explorer as well with this query
+So it defaults to it's domain "contoso.com"'s' passwordValidityPeriodInDays as `"passwordPolicies": null`.  You can then find it's domain policy in Graph Explorer as well with this query
 
 * `GET https://graph.microsoft.com/beta/domains/contoso.co?$select=passwordValidityPeriodInDays`
 
