@@ -14,6 +14,8 @@ There is often some confusion about how password expiration works in Entra for u
 
    'passwordValidityPeriodInDays' can be an integer value representing the number of days a user's password is good for if there is no per-user passwordPolicies applied to that user.
 
+3. This means that today you can't have user@contoso.com's password expire in 90 days and user2@contoso.com's password expire in 180 days.  You can only configure password expiration at the **per-user** level to NEVER expire, or you can configure **all user's from contoso.com** to expire in X number of days.  There is no granularity option available.
+
 ## Simple example 1 (Cloud Only Users)
 
 This user has no custom passwordPolicies set
