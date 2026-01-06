@@ -73,3 +73,8 @@ If I look at another user in Graph.  One that is synchned from on-premises using
    ```
 
 Bill has `"onPremisesSyncEnabled": true` and `"passwordPolicies": "DisablePasswordExpiration"` .  So his per-user passwordPolicy for cloud account is set to never expire.  Regardless of what his domain's password expiration policy is.  His password will not expire, not even in 6 million years.
+
+# Diagram Example
+
+<img width="1370" height="810" alt="image" src="https://github.com/user-attachments/assets/c88088a6-4c4f-4a1c-973f-cd9b80433272" />
+
