@@ -10,6 +10,10 @@
 
    <img width="2191" height="1229" alt="image" src="https://github.com/user-attachments/assets/b555ef03-21c5-48a7-aa6a-d59ce8931706" />
 
+6. Other activities to inspect are `Verify email address` to check the email addresses being utilized
+
+   <img width="1992" height="1026" alt="image" src="https://github.com/user-attachments/assets/f38a3c55-7aca-4964-9155-22c64b4a90ee" />
+
 
 5. If you are [sending your Azure AD B2C audit logs to a Log Analytics SIEM](https://learn.microsoft.com/en-us/azure/active-directory-b2c/azure-monitor) you can query these details with a KQL query like
 
