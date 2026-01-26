@@ -38,7 +38,7 @@
 
 6. You can also use [pre-built Azure AD B2C MFA Workbook](https://learn.microsoft.com/en-us/azure/active-directory-b2c/phone-based-mfa) to analyze MFA usage
   
-       <img width="974" height="1004" alt="image" src="https://github.com/user-attachments/assets/c02d8f18-5745-4f39-b410-499cadcb70ea" />
+   <img width="974" height="1004" alt="image" src="https://github.com/user-attachments/assets/c02d8f18-5745-4f39-b410-499cadcb70ea" />
 
 7.  To prevent further unwanted phone-based MFA usage from certain country codes you can update your policy following [Mitigate fraudulent sign-ups for custom policy](https://learn.microsoft.com/en-us/azure/active-directory-b2c/phone-based-mfa#mitigate-fraudulent-sign-ups-for-custom-policy) or [Mitigate fraudulent sign-ups for user flow](https://learn.microsoft.com/en-us/azure/active-directory-b2c/phone-based-mfa#mitigate-fraudulent-sign-ups-for-user-flow)
 
