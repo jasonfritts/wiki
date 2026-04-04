@@ -1,7 +1,7 @@
 Notes for setting up Entra Workforce SAML Federation w/Okta for Guest Users
 
 # Scenario
-[Entra Workforce SAML Direct Federation ](https://learn.microsoft.com/en-us/entra/external-id/direct-federation) is a feature that allows you as a resource tenant Entra workforce admin to direct federate to 3rd party SAML idntity providers for the purposes of inviting users from the 3rd party SAML identity provider via B2B guest invitations to access resources hosted in your tenant.
+[Entra Workforce SAML Direct Federation ](https://learn.microsoft.com/en-us/entra/external-id/direct-federation) is a feature that allows you as a resource tenant Entra workforce admin to direct federate to 3rd party SAML identity providers for the purposes of inviting users from the 3rd party SAML identity provider via B2B guest invitations to access resources hosted in your tenant.  This would typically be done if the invited users do not have their own Entra work\school accounts in their own Entra tenant.
 
 # Prerequisites
 ## Entra Workforce Environment
@@ -39,5 +39,29 @@ For lab environments if you do not have an Okta deveoper account you can sign up
 6. Finally you should assign your test user to your Okta SAML app so the user is allowed to utilize the federation
 
 ## Step 2. Configuring the Entra Workforce SAML Federation
+
+1. From your Entra Workforce tenant, In Entra Portal -> External identities -> Identity providers -> New Custom SAML Identity Provider
+
+	1. Domain = the test domain suffix your Okta user is using ex. `contoso.com
+	2. Use parse metadata file option and upload the `metadata.xml` file you downloaded from Okta
+   3. The XML should be parsed to locate the following details 
+	     * Issuer Uri = `http://www.okta.com/exk11ms6j76iX90B9698` 
+	     * Passive auth endpoint = `https://integrator-abc123.okta.com/app/integrator-8411327_appname_1/exk11ms6j76iX90B9698/sso/saml`
+        * Cert = `long based64 cert value` (NOTE: You may get an error saying it contains spaces, in which case you should edit your xml file and remove all spaces\newlines and reupload)
+	      * Metadata url = `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` (NOTE: Type this in manually if needed)
+
+  4. Save the config and you will get an error like: `Invalid domain contoso.com. Domain should match the passiveSignInUri. Otherwise, please add the passiveSignInUri in the domain DNS TXT record like this DirectFedAuthUrl=https://integrator-abc123.okta.com/app/integrator-abc123_appname_1/exk11ms6j76iX90B9698/sso/saml` which is expected if using Okta lab and you will need to follow the error recommendation and create a DNS TXT record in your domain's namespace 
+
+  5. In domain DNS registrar for `contoso.com` add a TXT record 
+
+	DirectFedAuthUrl=https://integrator-abc123.okta.com/app/integrator-abc123_appname_1/exk11ms6j76iX90B9698/sso/saml
+
+  6. Now go back to Entra steps and save identity provider where you should not have same error
+
+## Step 3. Testing 
+
+1. From Entra Workforce tenant, you must create a new invited user from Users blade -> Invite User and invite the Okta user's email address `test.user@contoso.com`
+
+2. Once invited user has been created in Entra workforce you can test the federation by opening your incognito browser and visiting `h
 
 
