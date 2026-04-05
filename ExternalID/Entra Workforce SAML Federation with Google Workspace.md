@@ -21,7 +21,8 @@ For lab environments if you do not have an Google Workspace account you can sign
 4. Continue with app creation and update the following properties
 
     * ACS URL = `https://login.microsoftonline.com/login.srf`
-    * Entity Id = `https://login.microsoftonline.com/<tenant guid>/`
+       * NOTE: If you are federating with an Entra External ID (not workforce) the ACS URL should be `https://<tenantID>.ciamlogin.com/login.srf` instead 
+    * Entity Id = `https://login.microsoftonline.com/<tenant guid>/`  
     * Name ID Format = `Persistent`
     * Name ID = `Basic Information > Primary email`
 
@@ -79,7 +80,8 @@ For lab environments if you do not have an Google Workspace account you can sign
 
      <img width="590" height="293" alt="image" src="https://github.com/user-attachments/assets/8d338d2a-5b26-4c81-bd6f-83b3cf0578f9" />
 
-	 <img width="950" height="485" alt="image" src="https://github.com/user-attachments/assets/2f8df0e9-6802-456e-be5c-e006aa36dc11" />
+	 <img width="917" height="464" alt="image" src="https://github.com/user-attachments/assets/82587771-b18b-4d8a-91bf-ef027ae00cef" />
+
 
 
 
@@ -90,7 +92,8 @@ For lab environments if you do not have an Google Workspace account you can sign
 
    And confirm when hitting next you are redirected to your Google Workspace sign on-url to sign in:
 
-   <img width="844" height="531" alt="image" src="https://github.com/user-attachments/assets/9301f920-f11b-4792-a680-063ca0aa9562" />
+   <img width="904" height="446" alt="image" src="https://github.com/user-attachments/assets/662deeed-5838-41bb-b5dc-7d63a602fa1e" />
+
 
 5. Signing in succesfully with your Google Workspace account for first time should prompt you to Accept the conditions of the invitation and subsequently sign you into the target URL of the resource tenant
 
