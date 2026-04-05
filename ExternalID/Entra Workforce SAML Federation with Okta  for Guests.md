@@ -69,7 +69,7 @@ For lab environments if you do not have an Okta deveoper account you can sign up
         * Cert = `long based64 cert value` (NOTE: You may get an error saying it contains spaces, in which case you should edit your xml file and remove all spaces\newlines and reupload)
 	      * Metadata url = `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` (NOTE: Type this in manually if needed)
 
-  4. Save the config and you will get an error like: `Invalid domain contoso.com. Domain should match the passiveSignInUri. Otherwise, please add the passiveSignInUri in the domain DNS TXT record like this DirectFedAuthUrl=https://integrator-abc123.okta.com/app/integrator-abc123_appname_1/exk11ms6j76iX90B9698/sso/saml` which is expected if using Okta lab and you will need to follow the error recommendation and create a DNS TXT record in your domain's namespace 
+  4. Save the config and you may get an error like: `Invalid domain contoso.com. Domain should match the passiveSignInUri. Otherwise, please add the passiveSignInUri in the domain DNS TXT record like this DirectFedAuthUrl=https://integrator-abc123.okta.com/app/integrator-abc123_appname_1/exk11ms6j76iX90B9698/sso/saml` which is expected if using Okta lab and you will need to follow the error recommendation and create a DNS TXT record in your domain's namespace 
 
   5. In domain DNS registrar for `contoso.com` add a TXT record 
 
@@ -81,6 +81,97 @@ For lab environments if you do not have an Okta deveoper account you can sign up
 
 1. From Entra Workforce tenant, you must create a new invited user from Users blade -> Invite User and invite the Okta user's email address `test.user@contoso.com`
 
-2. Once invited user has been created in Entra workforce you can test the federation by opening your incognito browser and visiting `h
+     <img width="590" height="293" alt="image" src="https://github.com/user-attachments/assets/8d338d2a-5b26-4c81-bd6f-83b3cf0578f9" />
+
+	 <img width="950" height="485" alt="image" src="https://github.com/user-attachments/assets/2f8df0e9-6802-456e-be5c-e006aa36dc11" />
 
 
+
+3. Once invited user has been created in Entra workforce you can test the federation by opening your incognito browser and visiting `http://portal.azure.com/resourcetenant.onmicrosoft.com` where `resourcetenant.onmicrosoft.com` is the tenant name or guid of the Entra tenant you have invited this guest to.
+4. Type in the `test.user@contoso.com` user you invited \ created in Okta 
+
+   <img width="455" height="346" alt="image" src="https://github.com/user-attachments/assets/a851b825-2a21-493f-ae15-5c52748dc513" />
+
+   And confirm when hitting next you are redirected to your Okta sign on-url to sign in:
+
+   <img width="844" height="531" alt="image" src="https://github.com/user-attachments/assets/9301f920-f11b-4792-a680-063ca0aa9562" />
+
+5. Signing in succesfully with your Okta account for first time should prompt you to Accept the conditions of the invitation and subsequently sign you into the target URL of the resource tenant
+
+   <img width="750" height="586" alt="image" src="https://github.com/user-attachments/assets/62f2a17e-b1a2-42e1-82e1-190cf0f34185" />
+
+## Troubleshooting
+
+### **AADSTS5000819**: SAML Assertion is invalid. Email address claim is missing or does not match domain from an external realm. or<br> **AADSTS500089:**  SAML 2.0 assertion validation failed: SAML token is invalid.
+
+This error indicates that the external SAML IDP sent Entra a SAML token but it either
+
+1. The IDP sent the `SAMLResponse` to the incorrect destination\AssertionConsumerURL for an Entra Workforce or Entra External ID tenant:
+
+
+   |**Resource Tenant Type**  | **Expected Target\AssertionConsumerUrl**  |
+   |--|--|
+   |Entra Workforce Resource Tenant  | `https://login.microsoftonline.com/login.srf`  |
+   |Entra External ID Tenant  | `https://<tenantID>.ciamlogin.com/login.srf`  |
+
+    
+
+1. The IDP's `SAMLResponse` did not contain the required attribute statements as per [Required SAML 2.0 attributes and claims](https://learn.microsoft.com/en-us/entra/external-id/direct-federation#required-saml-20-attributes-and-claims) 
+2. The `SAMLResponse` contains a `AudienceRestriction` element that does not match [the required audience format](https://learn.microsoft.com/en-us/entra/external-id/direct-federation#to-configure-a-saml-20-identity-provider) of `https://login.microsoftonline.com/<tenant ID>/` where <tenant ID> is the resource tenant ID. 
+3. `SAMLResponse` Had the required claims, but the domain name of the email address was not found as a Entra SAML federated identity provider.
+
+
+**Troubleshooting**: 
+
+1. Capture a Fiddler or HAR of the sign in failure
+2. Locate the `SAMLResponse` value sent to `login.microsoftonline.com/login.srf` for Entra Workforce Tenants OR `https://<tenantID>.ciamlogin.com/login.srf` for Entra External ID tenants (any other target URL is not valid) and decode it using Fiddler Text Wizard:
+
+   <img width="1067" height="723" alt="image" src="https://github.com/user-attachments/assets/72ff693a-2350-41a5-a818-dd733aa2cdd0" />
+
+
+5. Confirm the presence of these **four** required attributes
+   * For a Entra Workforce Resource Tenant :
+       ```xml
+         <saml2p:Response Destination="https://login.microsoftonline.com/<resource tenant guid>/saml2"
+       ```
+     For a Entra External ID Resource Tenant :
+        ```xml
+         <saml2p:Response Destination="https://<tenantID>.ciamlogin.com/login.srf"
+   * ```xml
+       <saml2:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent">email@domain.com</saml2:NameID>
+     ```
+   * ```xml 
+      <saml2:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress">
+         <saml2:AttributeValue xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:anyType">email@domain.com</saml2:AttributeValue>
+      </saml2:Attribute>
+   * ```xml
+     <saml2:AudienceRestriction>
+        <saml2:Audience>https://login.microsoftonline.com/<resource tenant guid>/</saml2:Audience>
+     </saml2:AudienceRestriction>
+     ```
+
+6. If these exact attribute names are not found in the SAMLResponse, then the SAML IDP needs to be reconfigured to emit them.  These steps will be different depending on the IDP.
+7. Additionally the value of `email@domain.com` in the SAML response should be found in the resource tenant as an invited external guest.
+
+### **AADSTS5000811**: Unable to verify token signature. The signing key identifier does not match any valid registered keys.
+This error indicates that the SAML Response from the external IDP was signed using a certificate which Entra cannot find in the Entra External ID SAML Federation configuration.  To diagnose this issue
+1. Capture a Fiddler trace of the SAML sign in
+2. Locate the SAMLResponse sent to `login.microsoftonline.com/login.srf` and decode it using Fiddler Text Wizard (right click -> Send to Text Wizard ) to find the **X509Certificate** value
+
+   <img width="1263" height="659" alt="image" src="https://github.com/user-attachments/assets/3b040efc-24bb-475a-b800-a07b11a58545" />
+
+3. This value in-between <X509Certificate> value </X509Certificate>is the Base64 Encoded version of the SSL Signing Cert used to sign the SAMLResponse.  You can copy and paste it's contents into a Base64 Certificate decoder Powershell script example below to see it's properties such as start\end date and thumbprint to confirm it matches expected values. 
+
+      ```powershell
+      #Update this variable to contain certificate base64 value you wish to convert
+      $certraw = "MIIDdDCCAlygAwIBAg....."
+      
+      #Run to view certificate properties such as start\end dates , thumbprint etc.
+      [System.Security.Cryptography.X509Certificates.X509Certificate2]([System.Convert]::FromBase64String($certraw)) | fl *
+     ```
+
+3. Now compare this value with the Signing Certificate found in your Graph Explorer (https://aka.ms/ge) -> GET `/directory/federationConfigurations/graph.samlOrWsFedExternalDomainFederation` -> `signingCertificate` value and verify they match.
+
+
+
+4. If these certs don't match then you will need to contact SAML IDP for an updated metadata XML and reconfigure Entra SAML Federation to update the Signing Certificate to match.  Reference [How do I update the certificate or configuration details?-](https://learn.microsoft.com/en-us/entra/external-id/direct-federation#how-do-i-update-the-certificate-or-configuration-details)
