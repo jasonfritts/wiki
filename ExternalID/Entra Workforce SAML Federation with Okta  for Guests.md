@@ -11,38 +11,57 @@ Validate your Entra Workforce Tenant ID and type in Entra Portal
 
 
 ## Okta Environment
-For lab environments if you do not have an Okta deveoper account you can sign up for one @ https://developer.okta.com/signup/ , you will now have an admin portal like 'https://integrator-abc123-admin.okta.com/admin' which will act as the 3rd party identity provider in this scenario that you are inviting to your Entra workforce tenant.
+For lab environments if you do not have an Okta deveoper account you can sign up for one @ https://developer.okta.com/signup/ , you will now have an admin portal like `https://integrator-abc123-admin.okta.com/admin` which will act as the 3rd party identity provider in this scenario that you are inviting to your Entra workforce tenant.
 
 # Federation Setup Steps
 ## Step 1. Create SAML Service Provider App In Okta
-1. From your admin portal 'ex. https://integrator-abc123-admin.okta.com/admin' browse to Apps
+1. From your admin portal ex. `https://integrator-abc123-admin.okta.com/admin` browse to Apps
 2. Create a new SAML app with following properties
-   
-    * single sign-on url = `https://login.microsoftonline.com/login.srf`
-    * audience = `https://login.microsoftonline.com/<entra workforce tenant guid/`
-    * Name ID format = `Persistent`
-    * App Username = `Email`
+
+  * Single sign-on URL = `https://login.microsoftonline.com/login.srf`
+  * Audience URI = `https://login.microsoftonline.com/<tenant guid>/`
+  * Name ID Format = `Persistent`
+  * Application Username = `Email`
+
+    <img width="1130" height="694" alt="image" src="https://github.com/user-attachments/assets/adb8e6a5-8aa2-4bb7-9662-c8bcd268ce82" /> 
+
       
-3. On the SAML app create an attribute statement with
+4. After you save the new app with above properties, open app configuration -> Sign On tab -> Settings -> Attribute statements and create the following attribute expression
 
     * Name = `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`
     * Value Rule = `user.profile.email`
+  
+      <img width="705" height="292" alt="image" src="https://github.com/user-attachments/assets/40cc6d8a-9f35-440e-84ff-bc9b9434e897" />
 
-4. Once your app is created, review it's properties and locate the metadata URL it should look something like `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` , open this in your browser and copy\paste it's contents to notepad + save it locally to your desktop as `metadata.xml`  from the metadata you should also note the following properties examples for later
+
+5. Under the App -> Sign On tab -> Settings locate the metadata URL it should look something like `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` , open this in your browser and copy\paste it's contents to notepad + save it locally to your desktop as `metadata.xml`  from the metadata you should also note the following properties examples for later
 
     * entityID = `http://www.okta.com/exk11ms6j76iX90B9698`
     * SAML:2.0:bindings:HTTP-POST Location = `https://integrator-abc123.okta.com/app/integrator-8411327_appname_1/exk11ms6j76iX90B9698/sso/saml`
     * X509Certificate = `long base64 encoded certificate that contains spaces`
   
-5. For testing you should create a Okta directory user\person with an email for example `test.user@contoso.com` with a password.
+      <img width="1666" height="345" alt="image" src="https://github.com/user-attachments/assets/4946e65e-f2d4-41bf-b0c7-188215916004" />
 
-6. Finally you should assign your test user to your Okta SAML app so the user is allowed to utilize the federation
+6. Under the App -> General tab, ensure that your new App has been Activated
+
+     <img width="698" height="304" alt="image" src="https://github.com/user-attachments/assets/8573acbc-49d0-46b3-af75-1a8e1ed9688f" />
+
+  
+6. For testing you should create a Okta directory user\person with an email for example `test.user@contoso.com` with a password.
+
+   <img width="1045" height="655" alt="image" src="https://github.com/user-attachments/assets/c01fd9f4-7751-42b2-b986-6248c5407ba2" />
+
+
+8. Finally you should assign your test user to your Okta SAML app so the user is allowed to utilize the federation
+
+   <img width="947" height="510" alt="image" src="https://github.com/user-attachments/assets/4bc04109-0f50-4f98-aeaa-f0cf0fb87653" />
+
 
 ## Step 2. Configuring the Entra Workforce SAML Federation
 
 1. From your Entra Workforce tenant, In Entra Portal -> External identities -> Identity providers -> New Custom SAML Identity Provider
 
-	1. Domain = the test domain suffix your Okta user is using ex. `contoso.com
+	1. Domain = the test domain suffix your Okta user is using ex. `contoso.com`
 	2. Use parse metadata file option and upload the `metadata.xml` file you downloaded from Okta
    3. The XML should be parsed to locate the following details 
 	     * Issuer Uri = `http://www.okta.com/exk11ms6j76iX90B9698` 
