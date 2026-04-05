@@ -1,3 +1,5 @@
+# Entra Workforce SAML Federation with Google Workspace for Guests Lab
+
 Notes for setting up Entra Workforce SAML Federation w/Google Workspace aka GSuite for Guest Users
 
 # Scenario
