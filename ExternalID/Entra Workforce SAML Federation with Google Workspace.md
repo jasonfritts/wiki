@@ -25,7 +25,8 @@ For lab environments if you do not have an Google Workspace account you can sign
     * Name ID Format = `Persistent`
     * Name ID = `Basic Information > Primary email`
 
-      dfsdfsdfsdfsdfdsfdsfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+      <img width="1717" height="828" alt="image" src="https://github.com/user-attachments/assets/8df28a2a-a86b-4dec-a618-96e6cef8d131" />
+
 
       
 4. On the Attribute mapping step configure the following attribute mapping
@@ -33,17 +34,23 @@ For lab environments if you do not have an Google Workspace account you can sign
     * Google Directory attributes = `Primary email`
     * App attributes = `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress`
   
-      
+      <img width="1117" height="431" alt="image" src="https://github.com/user-attachments/assets/60a7f5e4-a7f5-4a34-93ab-d21a5ed3aacf" />
 
 
-5. Once the new App has been saved, open it's properties and ensure that it has been enabled and under `User access` it shows `ON for everyone` otherwise update it to be enabled for all users which you wish to utilize the federation
+
+5. Once the new App has been saved, open it's properties and ensure that it has been enabled and under `User access` it shows `ON for everyone` otherwise update it to be enabled for all users which you wish to utilize the federation.  Additionally confirm the ACS \ Entity ID \ and Attribute mapping matches what it should per previous steps
+
+     <img width="1521" height="582" alt="image" src="https://github.com/user-attachments/assets/47b10e20-3011-4780-926b-c5df9d74b379" />
+
 
      
   
-6. For testing you should create a Google workspace directory user\person with an email for example `test.user@contoso.com` with a password from Admin menu -> Directory -> Users -> Add new user and ensure you populate the Primary email address
+7. For testing you should create a Google workspace directory user\person with an email for example `test.user@contoso.com` with a password from Admin menu -> Directory -> Users -> Add new user and ensure you populate the Primary email address
+
+    <img width="1105" height="535" alt="image" src="https://github.com/user-attachments/assets/cc4d7fab-566a-4f48-8e09-be7de697aff2" />
 
   
-7. Finally if you did not enable the app for ALL users you should enable the user to use the SAML federation app
+8. Finally if you did not enable the app for ALL users you should enable the user to use the SAML federation app
 
 ## Step 2. Configuring the Entra Workforce SAML Federation
 
