@@ -60,7 +60,7 @@ For lab environments if you do not have an Google Workspace account you can sign
 	1. Domain = the test domain suffix your Google Workspace user is using ex. `contoso.com`
 	2. Use parse metadata file option and upload the `GoogleIDPMetadata.xml` file you downloaded from Google Workspace App configuration
    3. The XML should be parsed to locate the following details 
-	     * Issuer Uri = `https://accounts.google.com/o/saml2?idpid=abc12345
+	     * Issuer Uri = `https://accounts.google.com/o/saml2?idpid=abc12345`
 	     * Passive auth endpoint = `https://accounts.google.com/o/saml2/idp?idpid=abc12345`
         * Cert = `long based64 cert value`
           	     
