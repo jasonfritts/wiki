@@ -18,12 +18,12 @@ For lab environments if you do not have an Okta deveoper account you can sign up
 1. From your admin portal ex. `https://integrator-abc123-admin.okta.com/admin` browse to Apps
 2. Create a new SAML app with following properties
 
-  * Single sign-on URL = `https://login.microsoftonline.com/login.srf`
-  * Audience URI = `https://login.microsoftonline.com/<tenant guid>/`
-  * Name ID Format = `Persistent`
-  * Application Username = `Email`
+    * Single sign-on URL = `https://login.microsoftonline.com/login.srf`
+    * Audience URI = `https://login.microsoftonline.com/<tenant guid>/`
+    * Name ID Format = `Persistent`
+    * Application Username = `Email`
 
-    <img width="1130" height="694" alt="image" src="https://github.com/user-attachments/assets/adb8e6a5-8aa2-4bb7-9662-c8bcd268ce82" /> 
+      <img width="1130" height="694" alt="image" src="https://github.com/user-attachments/assets/adb8e6a5-8aa2-4bb7-9662-c8bcd268ce82" /> 
 
       
 4. After you save the new app with above properties, open app configuration -> Sign On tab -> Settings -> Attribute statements and create the following attribute expression
