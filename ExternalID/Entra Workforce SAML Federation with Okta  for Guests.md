@@ -1,3 +1,5 @@
+# Entra Workforce SAML Federation with Okta for Guests Lab
+
 Notes for setting up Entra Workforce SAML Federation w/Okta for Guest Users
 
 # Scenario
