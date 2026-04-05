@@ -66,8 +66,10 @@ For lab environments if you do not have an Okta deveoper account you can sign up
    3. The XML should be parsed to locate the following details 
 	     * Issuer Uri = `http://www.okta.com/exk11ms6j76iX90B9698` 
 	     * Passive auth endpoint = `https://integrator-abc123.okta.com/app/integrator-8411327_appname_1/exk11ms6j76iX90B9698/sso/saml`
-        * Cert = `long based64 cert value` (NOTE: You may get an error saying it contains spaces, in which case you should edit your xml file and remove all spaces\newlines and reupload)
-	      * Metadata url = `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` (NOTE: Type this in manually if needed)
+        * Cert = `long based64 cert value`
+           * (NOTE: You may get an error saying it contains spaces, in which case you should edit your xml file and remove all spaces\newlines and reupload an easy way to do this is [with powershell](https://copilot.microsoft.com/shares/hFg3x8aNr47DVntPf1dBH)
+	     
+		* Metadata url = `https://integrator-abc123.okta.com/app/exk11ms6j76iX90B9698/sso/saml/metadata` (NOTE: Type this in manually if needed)
 
   4. Save the config and you may get an error like: `Invalid domain contoso.com. Domain should match the passiveSignInUri. Otherwise, please add the passiveSignInUri in the domain DNS TXT record like this DirectFedAuthUrl=https://integrator-abc123.okta.com/app/integrator-abc123_appname_1/exk11ms6j76iX90B9698/sso/saml` which is expected if using Okta lab and you will need to follow the error recommendation and create a DNS TXT record in your domain's namespace 
 
@@ -124,7 +126,7 @@ This error indicates that the external SAML IDP sent Entra a SAML token but it e
 **Troubleshooting**: 
 
 1. Capture a Fiddler or HAR of the sign in failure
-2. Locate the `SAMLResponse` value sent to `login.microsoftonline.com/login.srf` for Entra Workforce Tenants OR `https://<tenantID>.ciamlogin.com/login.srf` for Entra External ID tenants (any other target URL is not valid) and decode it using Fiddler Text Wizard:
+2. Locate the `SAMLResponse` value sent to `https://login.microsoftonline.com/login.srf` for Entra Workforce Tenants OR `https://<tenantID>.ciamlogin.com/login.srf` for Entra External ID tenants (any other target URL is not valid) and decode it using Fiddler Text Wizard:
 
    <img width="1067" height="723" alt="image" src="https://github.com/user-attachments/assets/72ff693a-2350-41a5-a818-dd733aa2cdd0" />
 
