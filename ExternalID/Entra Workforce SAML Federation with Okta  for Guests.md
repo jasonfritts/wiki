@@ -100,9 +100,9 @@ For lab environments if you do not have an Okta deveoper account you can sign up
 
    <img width="750" height="586" alt="image" src="https://github.com/user-attachments/assets/62f2a17e-b1a2-42e1-82e1-190cf0f34185" />
 
-## Troubleshooting
+# Troubleshooting
 
-### **AADSTS5000819**: SAML Assertion is invalid. Email address claim is missing or does not match domain from an external realm. or<br> **AADSTS500089:**  SAML 2.0 assertion validation failed: SAML token is invalid.
+## **AADSTS5000819**: SAML Assertion is invalid. Email address claim is missing or does not match domain from an external realm. or<br> **AADSTS500089:**  SAML 2.0 assertion validation failed: SAML token is invalid.
 
 This error indicates that the external SAML IDP sent Entra a SAML token but it either
 
@@ -153,7 +153,7 @@ This error indicates that the external SAML IDP sent Entra a SAML token but it e
 6. If these exact attribute names are not found in the SAMLResponse, then the SAML IDP needs to be reconfigured to emit them.  These steps will be different depending on the IDP.
 7. Additionally the value of `email@domain.com` in the SAML response should be found in the resource tenant as an invited external guest.
 
-### **AADSTS5000811**: Unable to verify token signature. The signing key identifier does not match any valid registered keys.
+## **AADSTS5000811**: Unable to verify token signature. The signing key identifier does not match any valid registered keys.
 This error indicates that the SAML Response from the external IDP was signed using a certificate which Entra cannot find in the Entra External ID SAML Federation configuration.  To diagnose this issue
 1. Capture a Fiddler trace of the SAML sign in
 2. Locate the SAMLResponse sent to `login.microsoftonline.com/login.srf` and decode it using Fiddler Text Wizard (right click -> Send to Text Wizard ) to find the **X509Certificate** value
