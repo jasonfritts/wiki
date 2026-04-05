@@ -19,6 +19,7 @@ For lab environments if you do not have an Okta deveoper account you can sign up
 2. Create a new SAML app with following properties
 
     * Single sign-on URL = `https://login.microsoftonline.com/login.srf`
+        * NOTE: If you are federating with an Entra External ID (not workforce) the ACS URL should be `https://<tenantID>.ciamlogin.com/login.srf` instead 
     * Audience URI = `https://login.microsoftonline.com/<tenant guid>/`
     * Name ID Format = `Persistent`
     * Application Username = `Email`
