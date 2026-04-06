@@ -5,6 +5,8 @@ Notes for setting up Entra Workforce SAML Federation w/Google Workspace aka GSui
 # Scenario
 [Entra Workforce SAML Direct Federation ](https://learn.microsoft.com/en-us/entra/external-id/direct-federation) is a feature that allows you as a resource tenant Entra workforce admin to direct federate to 3rd party SAML identity providers for the purposes of inviting users from the 3rd party SAML identity provider via B2B guest invitations to access resources hosted in your tenant.  This would typically be done if the invited users do not have their own Entra work\school accounts in their own Entra tenant.
 
+<mark>**Important:** This feature requires you as resource tenant administrator to <a href="https://learn.microsoft.com/en-us/entra/external-id/add-users-administrator">manually create B2B invited user objects</a> in your tenant.  During [invite redemption, which is also required](https://learn.microsoft.com/en-us/entra/external-id/redemption-experience) the invited user will utilize this federation configuration for authentication.  If you do not want users to have to redeem invites, and you own the Google Workspace environment look into [Google user provisioning](https://support.google.com/a/answer/7365072) and [Google SAML federation](https://support.google.com/a/answer/6363817) instead </mark>
+
 # Prerequisites
 ## Entra Workforce Environment
 An Entra Workforce tenant is the typical Entra tenant type which is most often used for M365 workloads for your employees.  It is separate from a Entra External ID tenant which is used for public\consumer facing CIAM workloads.
