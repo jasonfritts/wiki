@@ -20,7 +20,7 @@ Open [Microsoft Graph Explorer](https://aka.ms/ge).
 ## Step 2: Sign in to the lab tenant
 
 1. Select **Sign in**.
-2. Authenticate with an account in the lab tenant.
+2. Authenticate with an account in the lab tenant that has permissions to create devices.
 3. Verify that Graph Explorer shows the intended test tenant before continuing.
 
 ## Step 3: Configure the request
