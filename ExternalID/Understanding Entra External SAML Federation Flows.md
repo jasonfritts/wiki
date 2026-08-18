@@ -1,4 +1,4 @@
-### When Entra External ID federates to an external SAML/WS-Fed IdP, are there two separate SAML flows occuring?
+### When Entra External ID federates to an external SAML/WS-Fed IdP, are there two separate SAML flows occuring when signing user into Entra app?
 
 Yes. When an app signs in a user through Microsoft Entra External ID **and** that user is homed on an external SAML/WS-Fed identity provider that has been federated with Entra via [Add federation with SAML/WS-Fed identity providers](https://learn.microsoft.com/en-us/entra/external-id/direct-federation), there are **two independent SAML exchanges** chained together. Entra sits in the middle as an **identity broker**, acting as both a service provider and an identity provider at the same time:
 
