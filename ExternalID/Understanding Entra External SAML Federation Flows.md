@@ -34,7 +34,7 @@ sequenceDiagram
     App->>U: 12. Access granted
 ```
 
-Key points
+**Key points**
 
 * **Both legs are SP-initiated**. The app initiates against Entra, and Entra initiates against the external IdP. This is why IdP-initiated SSO isn't supported on Leg 2 — Entra always sends its own AuthnRequest first, so an unsolicited assertion has no matching request to correlate against.
 * **The external IdP's assertion is not passed through to the app**. Entra consumes it, resolves/provisions the user (just-in-time), and then issues a fresh token of its own to the app. The app never sees the external IdP's assertion.
