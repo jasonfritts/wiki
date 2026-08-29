@@ -5,7 +5,8 @@ A Windows Forms (GUI) PowerShell tool for browsing **Azure AD B2C email and phon
 ## Screenshot
 
 <!-- Add a screenshot of the tool here -->
-![Browse-B2CVerificationLogs GUI](docs/screenshot.png)
+<img width="1336" height="592" alt="image" src="https://github.com/user-attachments/assets/99531265-143b-40bd-bad3-d639eb1e1032" />
+
 
 ## What it does
 
