@@ -31,6 +31,9 @@
    
    Export-Csv -InputObject $NonUnitedStatesPhoneMFALogs -Path "C:\Temp\NonUSPhoneMFALogs.csv" -NoTypeInformation
    ```
+   ## Try Browse-B2CVerificationLogs.ps1
+   I have created a Graph SDK helper script to browse\query\export your B2C phone-based verification logs.  You can review [Browse-B2CVerificationLogs.ps1](https://github.com/jasonfritts/wiki/blob/main/Azure%20AD%20B2C/B2C%20Verification%20Log%20Browser/readme.md) to download and use it.
+   
 ## Via Log Analytics
 5. If you are [sending your Azure AD B2C audit logs to a Log Analytics SIEM](https://learn.microsoft.com/en-us/azure/active-directory-b2c/azure-monitor) you can query these details with a KQL query like
 
